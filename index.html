@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>For My Love ❤️</title>
+
+<style>
+body {
+    margin:0;
+    background: linear-gradient(to bottom, #ffdde1, #ee9ca7);
+    overflow:hidden;
+    font-family: 'Arial', sans-serif;
+    text-align:center;
+}
+
+#startHeart {
+    font-size:70px;
+    position:absolute;
+    left:-100px;
+    top:40%;
+    animation: run 4s forwards;
+    cursor:pointer;
+}
+
+@keyframes run {
+    0% {left:-100px;}
+    100% {left:40%;}
+}
+
+#clickText {
+    position:absolute;
+    top:55%;
+    width:100%;
+    font-size:22px;
+    font-weight:bold;
+    color:#fff;
+}
+
+.hidden {
+    display:none;
+}
+
+.falling-heart {
+    position:fixed;
+    top:-10px;
+    color:red;
+    font-size:24px;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    to {transform: translateY(100vh);}
+}
+
+#content {
+    position:relative;
+    margin-top:100px;
+    color:white;
+    z-index:2;
+}
+
+#photo {
+    width:200px;
+    height:200px;
+    border-radius:20px;
+    object-fit:cover;
+    margin-top:20px;
+    box-shadow:0 0 20px rgba(255,0,0,0.7);
+}
+</style>
+</head>
+
+<body>
+
+<div id="startHeart">💘</div>
+<div id="clickText">Click Me ❤️</div>
+
+<div id="content" class="hidden">
+    <h1>Happy Valentine's Day My Love ❤️</h1>
+
+    <!-- CHANGE IMAGE FILE NAME HERE -->
+    <img id="photo" src="yourphoto.jpg">
+
+    <p style="width:70%; margin:auto; margin-top:20px; font-size:18px;">
+        Write your love letter here ❤️  
+        This is where you pour your heart out.  
+        Tell him why he is your forever.
+    </p>
+</div>
+
+<script>
+document.getElementById("startHeart").onclick = function() {
+    document.getElementById("clickText").classList.add("hidden");
+    this.classList.add("hidden");
+    document.getElementById("content").classList.remove("hidden");
+    startRain();
+};
+
+function startRain() {
+    setInterval(function() {
+        const heart = document.createElement("div");
+        heart.classList.add("falling-heart");
+        heart.innerText = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 5000);
+    }, 200);
+}
+</script>
+
+</body>
+</html>
