@@ -3,110 +3,142 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>For My Love ❤️</title>
 
 <style>
+
 body{
     margin:0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(to bottom,#ffd6e7,#ffeef5);
+    font-family: 'Segoe UI', sans-serif;
     overflow-x:hidden;
+}
+
+/* ---------- ROSE BACKGROUND ---------- */
+
+.roses{
+    background:url('https://i.imgur.com/7QZ7Z6F.jpg');
+    background-size:cover;
+    background-position:center;
+}
+
+/* ---------- PAGES ---------- */
+
+.page{
+    width:100%;
+    height:100vh;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
     text-align:center;
 }
 
-/* Intro Section */
-#intro{
-    height:100vh;
+.active{
     display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
 }
 
-.bunny{
-    font-size:80px;
-    animation: walk 4s linear infinite;
+/* ---------- BUNNY ---------- */
+
+#bunny{
+    width:180px;
+    position:absolute;
+    left:-200px;
+    top:40%;
+    animation:run 6s linear forwards;
 }
 
-@keyframes walk{
-    0%{transform:translateX(-200px);}
-    100%{transform:translateX(200px);}
+@keyframes run{
+    from{left:-200px;}
+    to{left:40%;}
 }
 
-.heart{
-    font-size:50px;
-    margin-top:10px;
-    animation: float 2s infinite alternate;
-}
+/* ---------- BUTTONS ---------- */
 
-@keyframes float{
-    from{transform:translateY(0);}
-    to{transform:translateY(-20px);}
-}
-
-#clickText{
-    margin-top:20px;
-    font-size:22px;
-    color:#ff4d6d;
-    cursor:pointer;
-    font-weight:bold;
-}
-
-/* Heart Shower */
-.flying-heart{
-    position:fixed;
-    bottom:0;
+.giftBtn{
+    margin-top:30px;
+    padding:18px 30px;
     font-size:20px;
-    animation: rise 3s linear forwards;
+    border:none;
+    border-radius:15px;
+    background:linear-gradient(45deg,#ff4d6d,#ff8fa3);
+    color:white;
+    cursor:pointer;
+    box-shadow:0 8px 20px rgba(0,0,0,0.2);
+    transition:0.3s;
 }
 
-@keyframes rise{
-    to{
-        transform:translateY(-100vh);
-        opacity:0;
-    }
+.giftBtn:hover{
+    transform:scale(1.1);
 }
 
-/* Photo Section */
-#photoSection{
-    display:none;
-    padding:40px 20px;
-}
+/* ---------- PHOTO ---------- */
 
-#photoSection img{
+#photo{
     width:90%;
-    max-width:420px;
-    border-radius:20px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+    max-width:500px;
+    border-radius:25px;
+    box-shadow:0 10px 40px rgba(0,0,0,0.3);
 }
 
-/* Letter */
-#letter{
-    margin-top:40px;
-    padding:20px;
-    font-size:19px;
-    line-height:1.8;
-    color:#444;
+/* ---------- LETTER BOX ---------- */
+
+#letterBox{
     max-width:800px;
-    margin-left:auto;
-    margin-right:auto;
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 10px 40px rgba(0,0,0,0.3);
+    animation:fadeIn 2s;
 }
+
+@keyframes fadeIn{
+    from{opacity:0; transform:scale(0.8);}
+    to{opacity:1; transform:scale(1);}
+}
+
+.decor{
+    font-size:28px;
+    margin-bottom:10px;
+}
+
 </style>
 </head>
 
 <body>
 
-<div id="intro">
-    <div class="bunny">🐰</div>
-    <div class="heart">❤️</div>
+<!-- PAGE 1 -->
+<div id="page1" class="page roses active">
 
-    <div id="clickText" onclick="startSurprise()">Click Me 💕</div>
+    <img id="bunny" src="bunny.gif">
+
+    <button class="giftBtn" onclick="nextPage(2)">
+        🎁 Click Me
+    </button>
+
 </div>
 
-<div id="photoSection">
-    <img src="photo.jpg" alt="Us">
 
-    <div id="letter">
+<!-- PAGE 2 -->
+<div id="page2" class="page roses">
+
+    <img id="photo" src="photo.jpg">
+
+    <button class="giftBtn" onclick="nextPage(3)">
+        💝 To My Venkateswaran
+    </button>
+
+</div>
+
+
+<!-- PAGE 3 LETTER -->
+<div id="page3" class="page roses">
+
+    <div id="letterBox">
+
+        <div class="decor">🌹🍫💖🌹🍫💖</div>
+
+        <p style="font-size:19px; line-height:1.8; color:#444;">
 
 Before I met you, love was just a word to me…  
 Something people talked about in movies, something that sounded beautiful but felt distant.  
@@ -154,32 +186,24 @@ And in every lifetime after this. 💘
 Happy Valentine’s Day to the most important person in my life.  
 My everything. ❤️  
 
+        </p>
+
+        <div class="decor">💖🍫🌹💖🍫🌹</div>
+
     </div>
+
 </div>
+
 
 <script>
 
-function startSurprise(){
+function nextPage(pageNumber){
 
-    // heart shower
-    for(let i=0;i<35;i++){
-        let heart=document.createElement("div");
-        heart.innerHTML="❤️";
-        heart.className="flying-heart";
+    document.querySelectorAll('.page').forEach(p=>{
+        p.classList.remove('active');
+    });
 
-        heart.style.left=Math.random()*100+"vw";
-        heart.style.fontSize=(20+Math.random()*30)+"px";
-
-        document.body.appendChild(heart);
-
-        setTimeout(()=>heart.remove(),3000);
-    }
-
-    // show photo section
-    setTimeout(()=>{
-        document.getElementById("photoSection").style.display="block";
-        document.getElementById("photoSection").scrollIntoView({behavior:"smooth"});
-    },2000);
+    document.getElementById('page'+pageNumber).classList.add('active');
 
 }
 
