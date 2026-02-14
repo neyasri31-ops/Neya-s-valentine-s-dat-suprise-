@@ -1,87 +1,112 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>For My Love ❤️</title>
 
 <style>
-body {
+body{
     margin:0;
-    background: linear-gradient(to bottom, #ffdde1, #ee9ca7);
-    overflow:hidden;
-    font-family: 'Arial', sans-serif;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom,#ffd6e7,#ffeef5);
+    overflow-x:hidden;
     text-align:center;
 }
 
-#startHeart {
-    font-size:70px;
-    position:absolute;
-    left:-100px;
-    top:40%;
-    animation: run 4s forwards;
-    cursor:pointer;
+/* Intro Section */
+#intro{
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
 }
 
-@keyframes run {
-    0% {left:-100px;}
-    100% {left:40%;}
+.bunny{
+    font-size:80px;
+    animation: walk 4s linear infinite;
 }
 
-#clickText {
-    position:absolute;
-    top:55%;
-    width:100%;
-    font-size:22px;
-    font-weight:bold;
-    color:#fff;
+@keyframes walk{
+    0%{transform:translateX(-200px);}
+    100%{transform:translateX(200px);}
 }
 
-.hidden {
-    display:none;
+.heart{
+    font-size:50px;
+    margin-top:10px;
+    animation: float 2s infinite alternate;
 }
 
-.falling-heart {
-    position:fixed;
-    top:-10px;
-    color:red;
-    font-size:24px;
-    animation: fall linear infinite;
+@keyframes float{
+    from{transform:translateY(0);}
+    to{transform:translateY(-20px);}
 }
 
-@keyframes fall {
-    to {transform: translateY(100vh);}
-}
-
-#content {
-    position:relative;
-    margin-top:100px;
-    color:white;
-    z-index:2;
-}
-
-#photo {
-    width:200px;
-    height:200px;
-    border-radius:20px;
-    object-fit:cover;
+#clickText{
     margin-top:20px;
-    box-shadow:0 0 20px rgba(255,0,0,0.7);
+    font-size:22px;
+    color:#ff4d6d;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+/* Heart Shower */
+.flying-heart{
+    position:fixed;
+    bottom:0;
+    font-size:20px;
+    animation: rise 3s linear forwards;
+}
+
+@keyframes rise{
+    to{
+        transform:translateY(-100vh);
+        opacity:0;
+    }
+}
+
+/* Photo Section */
+#photoSection{
+    display:none;
+    padding:40px 20px;
+}
+
+#photoSection img{
+    width:90%;
+    max-width:420px;
+    border-radius:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* Letter */
+#letter{
+    margin-top:40px;
+    padding:20px;
+    font-size:19px;
+    line-height:1.8;
+    color:#444;
+    max-width:800px;
+    margin-left:auto;
+    margin-right:auto;
 }
 </style>
 </head>
 
 <body>
 
-<div id="startHeart">💘</div>
-<div id="clickText">Click Me ❤️</div>
+<div id="intro">
+    <div class="bunny">🐰</div>
+    <div class="heart">❤️</div>
 
-<div id="content" class="hidden">
-    <h1>Happy Valentine's Day My Love ❤️</h1>
+    <div id="clickText" onclick="startSurprise()">Click Me 💕</div>
+</div>
 
-    <!-- CHANGE IMAGE FILE NAME HERE -->
-    <img id="photo" src="yourphoto.jpg">
+<div id="photoSection">
+    <img src="photo.jpg" alt="Us">
 
-<p style="width:80%; margin:auto; margin-top:25px; font-size:19px; line-height:1.8;">
+    <div id="letter">
 
 Before I met you, love was just a word to me…  
 Something people talked about in movies, something that sounded beautiful but felt distant.  
@@ -129,28 +154,35 @@ And in every lifetime after this. 💘
 Happy Valentine’s Day to the most important person in my life.  
 My everything. ❤️  
 
-</p>
+    </div>
 </div>
 
 <script>
-document.getElementById("startHeart").onclick = function() {
-    document.getElementById("clickText").classList.add("hidden");
-    this.classList.add("hidden");
-    document.getElementById("content").classList.remove("hidden");
-    startRain();
-};
 
-function startRain() {
-    setInterval(function() {
-        const heart = document.createElement("div");
-        heart.classList.add("falling-heart");
-        heart.innerText = "❤️";
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+function startSurprise(){
+
+    // heart shower
+    for(let i=0;i<35;i++){
+        let heart=document.createElement("div");
+        heart.innerHTML="❤️";
+        heart.className="flying-heart";
+
+        heart.style.left=Math.random()*100+"vw";
+        heart.style.fontSize=(20+Math.random()*30)+"px";
+
         document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 5000);
-    }, 200);
+
+        setTimeout(()=>heart.remove(),3000);
+    }
+
+    // show photo section
+    setTimeout(()=>{
+        document.getElementById("photoSection").style.display="block";
+        document.getElementById("photoSection").scrollIntoView({behavior:"smooth"});
+    },2000);
+
 }
+
 </script>
 
 </body>
